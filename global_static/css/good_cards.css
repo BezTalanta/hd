@@ -1,0 +1,55 @@
+.content {
+    position: absolute;
+    top: 70px;
+    left: 5%;
+    width: 90%;
+    height: 915px;
+    background: radial-gradient(circle, rgba(193,226,45,1) 0%, rgba(252,206,70,1) 100%);
+    border: 2px solid black;
+    border-radius: 2%;
+    box-shadow: 10px 10px 5px peachpuff;
+}
+
+.content .card {
+    margin-top: 2%;
+    margin-left: 2%;
+    height: 400px;
+    width: 290px;
+    border: 2px solid black;
+    border-radius: 2%;
+    display: inline-block;
+}
+
+.content .card-bought{
+    border: 2px solid green;
+    border-radius: 2%;
+    display: inline-block;
+}
+
+.content .left-bottom-item {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    color: gray;
+}
+
+.content .right-bottom-item {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    color: gray;
+    float: right;
+}
+
+.content .card-bottom-div {
+    position: absolute;
+    bottom: 10%;
+    left: 20%;
+    text-align: center;
+}
+
+.content img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}

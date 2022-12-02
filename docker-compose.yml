@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - .db_data:/var/lib/postgresql/data
+    ports:
+      - '5431:5432'
+    environment:
+      POSTGRES_DB: "hd_lab_1"
+      POSTGRES_USER: "hd_lab_1_user"
+      POSTGRES_PASSWORD: "hd_lab_1_strong_password"
+      # POSTGRES_DB: "postgres"
+      # POSTGRES_USER: "postgres"
+      # POSTGRES_PASSWORD: "postgres"
+  db2:
+    image: postgres
+    volumes:
+      - .db_data_2:/var/lib/postgresql/data
+    ports:
+      - '5430:5432'
+    environment:
+      POSTGRES_DB: "hd_lab_2"
+      POSTGRES_USER: "hd_lab_2_user"
+      POSTGRES_PASSWORD: "hd_lab_2_strong_password"
+      # POSTGRES_DB: "postgres"
+      # POSTGRES_USER: "postgres"
+      # POSTGRES_PASSWORD: "postgres"
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/src
+    ports:
+      - "8000:8000"
+    # environment:
+    #   - POSTGRES_NAME: "postgres"
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+      - db2

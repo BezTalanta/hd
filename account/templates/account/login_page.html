@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    Псевдоним: <input name="username" type="text" value="{{ username }}"> <br>
+    Пароль: <input name="password" type="password"> <br>
+    <button class="btn btn-primary" type="submit">Войти</button>
+</form>
+{% endblock content %}

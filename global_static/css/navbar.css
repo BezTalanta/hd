@@ -1,0 +1,10 @@
+.c-navbar-right {
+    color: gray;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.c-navbar-right a{
+    text-decoration: none;
+    color: chocolate;
+}

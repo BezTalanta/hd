@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}
+<title>Магазин</title>
+{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "css/good_cards.css" %}">
+<link rel="stylesheet" href="{% static "good/arrows.css" %}">
+{% endblock style %}
+
+{% block content %}
+
+{% for good in goods_part_1 %}
+    <div class="card content_card">
+        <div class="card-header">
+            <h5 class="card-title" style="text-align: center;">
+                {{ good.title }}
+            </h5>
+        </div>
+        <div class="card-body">
+            <a href="{{ good.get_absolute_url }}">
+                <img src="{{ good.image_link }}" alt="Image lost" class="card-image">
+            </a>
+            <h4 class="card-text" style="text-align: center;">
+                {% if good.price >= 9999999 %}
+                    <p style="font-size: 30px;">&infin; &#8381;</p>
+                {% else %}
+                    <p style="font-size: 30px;">{{ good.price }} &#8381;</p>
+                {% endif %}
+            </h4>
+            <center>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="page" value="{{ page.number }}">
+                    <button type="submit" class="btn btn-success"
+                        name="buy_artikul" value="{{ good.artikul }}">
+                        Купить
+                    </button>
+                </form>
+            </center>
+            <!-- </div> -->
+        </div>
+        <div class="left-bottom-item">
+            {{ good.artikul }}
+        </div>
+        <div class="right-bottom-item">
+            Куплено {% make_end good.buy_amount %}
+        </div>
+    </div>
+{% endfor %}
+
+{% for good in goods_part_2 %}
+<div class="card content_card">
+    <div class="card-header">
+        <h5 class="card-title" style="text-align: center;">
+            {{ good.title }}
+        </h5>
+    </div>
+    <div class="card-body">
+        <a href="{{ good.get_absolute_url }}">
+            <img src="{{ good.image_link }}" alt="Image lost" class="card-image">
+        </a>
+        <h4 class="card-text" style="text-align: center;">
+            {% if good.price >= 9999999 %}
+                <p style="font-size: 30px;">&infin; &#8381;</p>
+            {% else %}
+                <p style="font-size: 30px;">{{ good.price }} &#8381;</p>
+            {% endif %}
+        </h4>
+        <center>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="page" value="{{ page.number }}">
+                <button type="submit" class="btn btn-success"
+                    name="buy_artikul" value="{{ good.artikul }}">
+                    Купить
+                </button>
+            </form>
+        </center>
+        <!-- </div> -->
+    </div>
+    <div class="left-bottom-item">
+        {{ good.artikul }}
+    </div>
+    <div class="right-bottom-item">
+        Куплено {% make_end good.buy_amount %}
+    </div>
+</div>
+{% endfor %}
+
+<div style="text-align: center; font-size: 30px; " class="pagination-show">
+{% if page.has_previous %}
+<a href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a>
+{% endif %}
+{{ page.number }}
+{% if page.has_next %}
+<a href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
+{% endif %}
+</div>
+{% endblock content %}
