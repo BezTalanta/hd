@@ -12,6 +12,9 @@ class User(AbstractUser):
     )
     role = models.CharField(max_length=2, choices=USER_ROLES, default='CL')
     is_user_allow_to_dashboard = models.BooleanField(default=False)
+    accepted_store = models.ForeignKey("store.store",
+                                       verbose_name="Выбранный магазин",
+                                       on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.username

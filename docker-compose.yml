@@ -3,6 +3,7 @@ services:
     image: postgres
     volumes:
       - .db_data:/var/lib/postgresql/data
+      - .dump.sql:/dump.sql
     ports:
       - '5431:5432'
     environment:

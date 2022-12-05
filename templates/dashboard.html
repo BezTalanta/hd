@@ -5,17 +5,67 @@
 {% endblock title %}
 
 {% block content %}
-Для вас доступны:
-<form action="{% url 'store' %}" method="get">
-    <input type="number" name="page" value="1" hidden>
-    <input class="btn btn-primary" type="submit" value="Магазин" readonly>
-</form>
-{% if user.is_authenticated %}
-    {% if user.is_superuser %}
-        You are a superuser
-    {% endif %}
-{% else %}
-<a href="{% url 'signup' %}">Зарегистрируйтесь</a> или
-<a href="{% url 'login' %}">войдите</a>, чтобы увидеть больше
-{% endif %}
+
+
+<div class="left" style="
+font-size: 20px;
+">
+<h3>Высчитывание процента скидки</h3>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Сумма покупок</th>
+            <th scope="col">Скидка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in discount_table %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ record.0 }}</td>
+                <td>{{ record.1 }}</td>
+                {% if record.1 >= 50000 %}
+                    <td>20%</td>
+                {% elif record.1 >= 10000 %}
+                    <td>10%</td>
+                {% elif record.1 >= 5000 %}
+                    <td>5%</td>
+                {% else %}
+                    <td>0%</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div class="left" style="
+font-size: 20px;
+">
+<h3>Высчитывание статистики магазинов</h3>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Магазин</th>
+            <th scope="col">Сумма продаж</th>
+            <th scope="col">Количество продаж</th>
+            <th scope="col">Актуальность</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in store_table %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ record.0 }}</td>
+                <td>{{ record.1 }}</td>
+                <td>{{ record.2 }}</td>
+                <td>{% widthratio record.1 record.2 1 %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
 {% endblock content %}

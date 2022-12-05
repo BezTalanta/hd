@@ -33,7 +33,25 @@ INSTALLED_APPS = [
     'account',
     'store',
     'good',
+    'storage',
 ]
+
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'hd',
+    #     # 'USER': 'postgres',
+    #     'USER': 'hd_user',
+    #     # 'PASSWORD': 'postgres',
+    #     'PASSWORD': 'hd_user_password',
+    #     'HOST': '',
+    #     'PORT': '',
+    # },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'master.sqlite3',
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,7 +87,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+DATABASE = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'hd_lab_1',

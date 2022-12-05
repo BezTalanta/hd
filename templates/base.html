@@ -58,9 +58,9 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {% if request.user.is_user_allow_to_dashboard %}
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link c-navbar-right" href="{% url 'dash' %}">Dashboard</a>
-            </li> -->
+            </li>
             {% endif %}
             <!-- <li class="nav-item">
                 <a class="nav-link c-navbar-right" href="#">Работа</a>
@@ -79,6 +79,11 @@
 
         <div class="c-navbar-right">
             {% if request.user.is_authenticated %}
+                {% if request.user.accepted_store is None %}
+                    <a href="{% url 'store_select' %}">Указать магазин</a>
+                {% else %}
+                    <a href="{% url 'store_select' %}">Магазин:</a> {{ request.user.accepted_store.city }}
+                {% endif %}
                 Привет, {{ request.user.username }},
                 <a href="{% url 'logout' %}">Выйти</a>
             {% else %}

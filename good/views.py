@@ -6,6 +6,7 @@ from django.conf import settings
 
 from .models import Good
 from .forms import GoodForm
+from store.models import History
 import config.cute_logging as clog
 
 
@@ -32,10 +33,20 @@ class HomeView(View):
     def post(self, request):
         if not request.user.is_authenticated:
             return redirect(reverse('login'))
+        if request.user.accepted_store is None:
+            return redirect(reverse('store_select'))
         object_to_buy = Good.objects.using(settings.SLAVE_NAME).get(
             artikul=request.POST['buy_artikul'])
         object_to_buy.buy_amount += 1
         object_to_buy.save()
+
+        # History work
+        History.objects.create(
+            user=request.user,
+            store=request.user.accepted_store,
+            good=object_to_buy,
+        )
+
         request.session['artikul_bought'] = object_to_buy.artikul
         request.session['page'] = request.POST['page']
         return redirect(reverse('store'))
